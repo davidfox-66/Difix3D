@@ -1,0 +1,49 @@
+# Conda environment file for a deep learning setup.
+#
+# This version uses a hybrid approach:
+# 1. Conda for the core libraries (PyTorch, CUDA, etc.) for stability.
+# 2. Pip for the high-level Hugging Face libraries to get specific versions.
+#
+# To create the environment, run:
+# conda env create -f environment.yml
+#
+# To activate the environment, run:
+# conda activate ml-diffusers-env-gpu
+
+name: difix_env_fixed
+
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+
+dependencies:
+  # --- Python Version ---
+  - python=3.11
+
+  # --- Core Libraries (managed by Conda) ---
+  # These are the foundational packages that benefit most from Conda's
+  # binary management and dependency resolution.
+  - pytorch
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.1
+  - torchmetrics
+  - wandb
+  - imageio
+  - ffmpeg
+  - einops
+  - lpips
+  - xformers
+
+  # --- Pip for specific Python packages ---
+  # Pip will be used to install packages that are not available on Conda
+  # or where a very specific version from PyPI is required.
+  - pip
+  - pip:
+    - peft==0.9.0
+    - diffusers==0.25.1
+    - huggingface-hub==0.25.1
+    - transformers==4.38.0
+    - imageio[ffmpeg] # Ensure ffmpeg plugin is registered
